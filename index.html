@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Od promptu k produktu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Jeden vizuální svět: lesní zelená a zlatá. Matné sklo nad pevným podkladem se světelnými skvrnami.
+   Layout: sloupec 1120 px; pořadí sekcí = pořadí příběhu (čísla, vývoj, princip, projekty, studie, postup, co dál). */
+:root{
+  color-scheme:dark;
+  --bg:#0E1F1A; --ink:#F0F2EC; --soft:#B9CABF; --mute:#8FA89D;
+  --gold:#D9B44A; --mint:#6FCF97;
+  --glass:rgba(255,255,255,.055); --glass-2:rgba(255,255,255,.09); --edge:rgba(255,255,255,.13); --hair:rgba(255,255,255,.08);
+  --blur:blur(18px) saturate(140%);
+  --sans:'IBM Plex Sans',Arial,sans-serif; --mono:'JetBrains Mono','Courier New',monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;background-color:var(--bg);
+  background-image:radial-gradient(900px 620px at 88% -8%,rgba(217,180,74,.22),transparent 62%),radial-gradient(820px 640px at -8% 34%,rgba(111,207,151,.16),transparent 62%),radial-gradient(900px 700px at 62% 108%,rgba(217,180,74,.12),transparent 62%);
+  background-attachment:fixed}
+a{color:var(--gold)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.glass{background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:0 10px 30px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+header.top{position:sticky;top:0;z-index:5;background:rgba(14,31,26,.55);border-bottom:1px solid var(--hair);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.bar{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap;padding:10px 20px}
+.brand{font-family:var(--mono);font-weight:700;color:var(--gold);letter-spacing:1px;text-decoration:none;margin-right:auto}
+nav{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+.ng{display:flex;flex-direction:column;gap:2px}
+.ngl{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mute);padding-left:8px}
+.ngi{display:flex;gap:2px}
+nav a{display:flex;align-items:center;gap:6px;color:var(--soft);text-decoration:none;font-size:14.5px;padding:5px 8px;border-radius:8px}
+nav a svg,.kbtn svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav a:hover,nav a.on{color:var(--ink);background:var(--glass-2)}
+nav a.on svg{stroke:var(--gold)}
+.tools{display:flex;gap:8px;align-items:center}
+.kbtn{display:flex;align-items:center;gap:8px;border-radius:10px;padding:6px 10px;font-size:14px;color:var(--soft);background:var(--glass);border:1px solid var(--edge)}
+.kbtn:hover{border-color:var(--gold);color:var(--ink)}
+kbd{font-family:var(--mono);font-size:12px;border:1px solid var(--edge);border-radius:6px;padding:1px 6px;color:var(--mute);background:rgba(0,0,0,.18)}
+.seg{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:6px 11px;font-family:var(--mono);font-size:13px;color:var(--soft)}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--bg);font-weight:700}
+.btn{border-radius:10px;padding:6px 12px;font-size:14px;background:var(--glass);border:1px solid var(--edge)}
+.btn:hover{border-color:var(--gold)}
+#prog{height:2px;background:var(--gold);width:0}
+section{padding:84px 0}
+.eyebrow{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:3px;color:var(--gold);margin:0 0 14px}
+h1{font-size:clamp(44px,8vw,104px);line-height:1.04;letter-spacing:-2px;margin:0;font-weight:700;text-wrap:balance}
+h2{font-size:clamp(30px,4.4vw,52px);line-height:1.12;letter-spacing:-.5px;margin:0 0 34px;font-weight:600;text-wrap:balance}
+.lead{font-size:clamp(18px,2vw,22px);color:var(--soft);max-width:62ch;margin:0}
+.hero{position:relative;padding:104px 0 92px;overflow:hidden}
+.hero svg.curve{position:absolute;right:-40px;top:0;height:100%;width:auto;opacity:.9}
+.hero .in{position:relative;display:flex;flex-direction:column;gap:22px}
+.who{font-weight:600;font-size:22px;margin:22px 0 0}
+.sm{font-family:var(--mono);font-size:13.5px;color:var(--mute);margin:4px 0 0}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.n5{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.card{border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:8px}
+.card.top{border-top:3px solid var(--gold)}
+.card.hl{border-color:var(--gold);background:rgba(217,180,74,.10)}
+.card.pick{cursor:pointer}
+.num{font-family:var(--mono);font-weight:700;font-size:clamp(40px,5vw,60px);line-height:1.05;color:var(--gold);font-variant-numeric:tabular-nums;margin:0}
+.n5 .num{font-size:clamp(34px,3.6vw,46px);white-space:nowrap}
+.lab{font-weight:600;font-size:18px;margin:0}
+.sub{font-size:14.5px;color:var(--mute);margin:0}
+.tag{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:1.5px;color:var(--gold);margin:0}
+.ttl{font-size:24px;font-weight:600;margin:0}
+.txt{color:var(--soft);margin:0;font-size:17px}
+.after{margin-top:30px}
+details{margin-top:18px;border-top:1px solid var(--hair);padding-top:12px}
+summary{cursor:pointer;font-family:var(--mono);font-size:13.5px;letter-spacing:1px;color:var(--mute);list-style:none;display:flex;align-items:center;gap:8px;width:max-content;max-width:100%}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";color:var(--gold);font-weight:700;width:14px;display:inline-block}
+details[open]>summary::before{content:"−"}
+summary:hover{color:var(--ink)}
+details .txt,details .sm{margin-top:10px}
+.chart{margin-top:30px;border-radius:18px;padding:22px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end;height:190px;border-bottom:1px solid var(--edge)}
+.barc{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px}
+.bar2{width:min(84px,70%);background:rgba(255,255,255,.16);border-radius:8px 8px 0 0;min-height:3px;transition:background .25s}
+.barc.on .bar2{background:var(--gold)}
+.bval{font-family:var(--mono);font-size:15px;color:var(--soft)}
+.barc.on .bval{color:var(--gold);font-weight:700}
+.blab{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center;font-family:var(--mono);font-size:13.5px;color:var(--mute);padding-top:8px}
+.cap{font-size:14px;color:var(--mute);margin:14px 0 0}
+.band{padding:0}
+.band .box{background:rgba(217,180,74,.92);color:var(--bg);border-radius:26px;padding:clamp(36px,6vw,72px);border:1px solid rgba(255,255,255,.35);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.band .eyebrow,.band .lead{color:var(--bg)}
+.st{font-size:clamp(46px,9vw,124px);font-weight:700;line-height:1.02;letter-spacing:-2px;margin:10px 0 26px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 30px}
+.chip{border-radius:999px;padding:7px 16px;color:var(--soft);background:var(--glass);border:1px solid var(--edge)}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:600}
+.group{margin-bottom:52px}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;padding:30px;border-radius:22px;margin-bottom:22px}
+.case h3{font-size:clamp(24px,3vw,34px);line-height:1.15;margin:0 0 14px;font-weight:600}
+.case.rev .pic{order:-1}
+.stat{display:flex;gap:18px;align-items:baseline;margin-top:10px}
+.stat .num{font-size:38px;min-width:92px}
+.stat .lab{font-weight:400;color:var(--ink);font-size:17px}
+.pic{background:none;border:1px solid var(--edge);border-radius:14px;padding:0;overflow:hidden;display:block;width:100%;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.pic:hover{border-color:var(--gold)}
+.pic img{display:block;width:100%;height:auto;max-width:100%}
+.steps{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 4px}
+.pill{font-family:var(--mono);font-size:13.5px;border:1px solid var(--gold);border-radius:10px;padding:5px 10px;background:rgba(0,0,0,.18)}
+.arr{color:var(--gold)}
+.flow{display:grid;gap:12px;align-items:start;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.flow details{margin:0;border-top:0;padding:14px 18px;border-radius:14px}
+.flow summary{color:var(--ink);font-size:14.5px;font-weight:700;width:100%}
+.flow details.core{border-color:var(--gold);background:rgba(217,180,74,.10)}
+.row{display:flex;gap:22px;align-items:baseline;padding:18px 0;border-top:1px solid var(--hair)}
+.row .no{font-family:var(--mono);font-weight:700;color:var(--gold);font-size:24px;min-width:48px}
+.row .t{font-size:clamp(20px,2.6vw,28px);font-weight:500}
+.end{padding-bottom:110px}
+.q{font-size:clamp(18px,2.2vw,24px);margin:8px 0 0}
+.q span{color:var(--gold)}
+dialog{border:1px solid var(--edge);border-radius:18px;background:rgba(14,31,26,.72);color:var(--ink);padding:14px;max-width:min(1200px,94vw);-webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(4,10,8,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#zoom img{display:block;max-width:100%;max-height:78vh;margin:0 auto 12px;border-radius:10px}
+#cmd{width:min(620px,94vw);padding:0;margin-top:12vh}
+#cmd h2{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mute);margin:0;padding:14px 18px 0;font-weight:700}
+#cmdq{width:100%;background:none;border:0;border-bottom:1px solid var(--hair);color:var(--ink);font:inherit;font-size:19px;padding:12px 18px 14px;outline:none}
+#cmdq::placeholder{color:var(--mute)}
+#cmdl{list-style:none;margin:0;padding:8px;max-height:min(52vh,420px);overflow-y:auto}
+#cmdl li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:16.5px}
+#cmdl li[aria-selected="true"]{background:rgba(217,180,74,.18);outline:1px solid rgba(217,180,74,.5)}
+#cmdl li small{font-family:var(--mono);font-size:12px;color:var(--mute)}
+#cmdl li.none{cursor:default;color:var(--mute)}
+.pre{opacity:.6;transform:translateY(18px)}
+.reveal{transition:opacity .6s ease,transform .6s ease}
+@media (max-width:980px){nav{display:none}}
+@media (max-width:760px){.case{grid-template-columns:1fr;padding:22px}.case.rev .pic{order:0}.hero svg.curve{display:none}section{padding:56px 0}.kbtn span.kl{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{transition:none}.pre{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+<a class="brand" href="#uvod">OŠ · AI</a>
+<nav id="nav" aria-label="Sekce"></nav>
+<div class="tools">
+<button class="kbtn" id="kopen" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="kl" id="klabel"></span><kbd id="kkey">Ctrl K</kbd></button>
+<div class="seg" role="group" aria-label="Jazyk / Language"><button id="lang-cs" type="button">CS</button><button id="lang-en" type="button">EN</button></div>
+<button class="btn" id="music" type="button" aria-pressed="false"></button>
+</div>
+</div><div id="prog"></div></header>
+<main id="app"></main>
+<dialog id="zoom"><img id="zoomimg" alt=""><button class="btn" id="zoomclose" type="button"></button></dialog>
+<dialog id="cmd" aria-labelledby="cmdh"><h2 id="cmdh"></h2><input id="cmdq" type="text" autocomplete="off" role="combobox" aria-controls="cmdl" aria-expanded="true"><ul id="cmdl" role="listbox"></ul></dialog>
+<audio id="bgm" src="audio/podkres.mp3" loop preload="none"></audio>
+<script>
+const DATA={"cs": {"ui": {"title": "Od promptu k produktu", "nav": ["Čísla", "Vývoj", "Princip", "Projekty", "Studie", "Metoda", "Co dál"], "all": "Vše", "work": "Firemní", "personal": "Soukromé", "music_on": "Pustit hudbu", "music_off": "Ztlumit hudbu", "music_err": "Hudbu se nepodařilo spustit.", "chart": "Konverzace v ChatGPT podle roku (export z března 2026)", "y2026": "leden až březen", "zoom": "Zvětšit ukázku", "close": "Zavřít", "phase": "Fáze", "groups": ["Příběh", "Práce", "Postup"], "search": "Hledat", "cmd_ph": "Kam chcete jít nebo co udělat?", "cmd_title": "Rychlé akce", "cmd_none": "Nic nenalezeno.", "go": "Přejít na", "sources": "Zdroje čísel", "more": "Podrobnosti", "sample": "O ukázce", "to_en": "Přepnout do angličtiny", "to_cs": "Přepnout do češtiny", "f_work": "Zobrazit jen firemní projekty", "f_personal": "Zobrazit jen soukromé projekty", "f_all": "Zobrazit všechny projekty", "top": "Úvod", "end": "Závěr a kontakt", "ln": "Otevřít LinkedIn", "hint_nav": "sekce", "hint_act": "akce", "hint_link": "odkaz"}, "cover": {"eyebrow": "PORTFOLIO · PRÁCE S AI · 2023–2026", "h1": ["Od promptu", "k produktu"], "lead": "Moje cesta od otázek v chatu k vlastním aplikacím a automatizaci.", "name": "Ondřej Štětka", "tag": "obchod · strategie · procesy · AI  |  listopad 2026"}, "cisla": {"eyebrow": "V ČÍSLECH", "h2": "Nejsem programátor. Přesto stavím.", "cards": [["651", "konverzací v ChatGPT", "říjen 2023 až březen 2026"], ["2 362", "mých zadání v těchto konverzacích", "od rychlých dotazů po analýzy"], ["5", "asistentů v Gemini", "3 firemní, 2 soukromé Gems"], ["376", "zadání v Claude Code", "38 relací, květen až říjen 2026"], ["9", "repozitářů na GitHubu", "weby a aplikace postavené s AI"]], "lead": "Nástroje si platím sám a učím se na skutečných úkolech z obchodu, reportingu a vzdělávání.", "foot": "Zdroj: export historie ChatGPT, statistiky Claude Code, GitHub, export Gemini"}, "cesta": {"eyebrow": "VÝVOJ", "h2": "Čtyři fáze za tři roky", "cards": [["2023–2024", "Otázky", "První konverzace v říjnu 2023. V roce 2024 jich bylo 148: překlady, e-maily, rychlé rešerše."], ["2025", "Analytik", "417 konverzací za rok. Strategie, analýzy trhu, případové studie. Od srpna i Claude."], ["JARO–LÉTO 2026", "Systémy", "Práce v projektech: 33 konverzací, 10 projektů. Forecast prodeje, cenotvorba, první dashboardy."], ["PODZIM 2026", "Stavitel", "Claude Code: vlastní aplikace, plánované úlohy a e-learning v ostrém provozu."]], "lead": "Od uživatele, který hledá odpověď, k tomu, kdo zadává, řídí a ověřuje práci AI."}, "princip": {"eyebrow": "PRINCIP, KTERÝ PLATÍ NA VŠECHNO", "st": ["Ověřeno,", "ne prohlášeno."], "lead": "AI odvede práci. Odpovědnost za výsledek nesu já: každý výstup má kritérium, test a kontrolu na skutečných datech."}, "firemni": {"eyebrow": "FIREMNÍ PROJEKTY · ANONYMIZOVÁNO", "h2": "Pět oborů, kde AI pracuje pro firmu", "cards": [["OBCHOD A CENOTVORBA", "Forecast prodeje, dynamická cenotvorba a bonusový model pro obchodní tým."], ["REPORTING A AUTOMATIZACE", "Dashboard projektů s automatickou týdenní závěrkou. Nový sales report z exportů CRM."], ["VZDĚLÁVÁNÍ", "Interní e-learning k AI Actu s testem a certifikátem. Školení AI pro kolegy."], ["ZÁKAZNÍK A WEB", "Prototyp AI asistenta pro web: odpovídá na dotazy a sbírá poptávky. Microsite projektu."], ["STRATEGIE A TRH", "Hoshin Kanri, tržní analýzy, monitoring konkurence a rešerše trhů."], ["ŘEŠENÍ PRO", "Obchodní a výrobní společnosti, různé odvětví. Nejdůležitější je aplikovatelnost nástrojů."]]}, "soukrome": {"eyebrow": "SOUKROMÉ PROJEKTY", "h2": "Kde si nové postupy zkouším nanečisto", "cards": [["HUDBA", "Struna: aplikace na cvičení kytary pro iPhone. Lekce, metronom, týdenní report učiteli."], ["ŽIVOTNÍ STYL", "Move & Bite: koncept průvodce pohybem a jídlem. Projekt ve výstavbě."], ["SPORT A DATA", "Roční přehledy kilometrů ze Stravy a vlastní grafy."], ["KARIÉRA", "Audit vlastní práce s AI napříč ChatGPT, Claude a Gemini. Web k prvním 100 dnům v nové roli."], ["RODINA", "Malé rodinné weby na GitHub Pages."], ["UČENÍ", "Deník a knižní výběry: drobné nástroje pro vlastní potřebu."]]}, "elearning": {"eyebrow": "PŘÍPADOVÁ STUDIE 1 · VZDĚLÁVÁNÍ", "h2": "E-learning, který je zároveň dokladem", "lead": "Interní aplikace: zaměstnanec projde školení, složí test a stáhne si certifikát. Slouží jako doklad plnění článku 4 AI Actu.", "stats": [["45", "zaměstnanců"], ["81", "strojových testů před každým přijetím změny"], ["0", "řádků kódu napsaných zadavatelem"]], "alt": "Titulní snímek školicího materiálu Jak vzniká interní aplikace s AI", "foot": "Ukázka: titulní strana školicího materiálu o stavbě aplikace"}, "dashboard": {"eyebrow": "PŘÍPADOVÁ STUDIE 2 · REPORTING", "h2": "Každý pátek v 16:00 běží závěrka sama", "lead": "Jeden přehled pro vedení: prodej, předání, retail a doprodej všech projektů. Plánovaná úloha ho každý týden sestaví z exportů.", "pills": ["záloha", "build", "validace", "snapshot", "archiv"], "lead2": "Ručně se jen nahrají exporty do složky. Zbytek včetně kontroly dat proběhne bez zásahu.", "alt": "Anonymizovaný dashboard projektů se čtyřmi sloupci a rozmazanými čísly", "foot": "Ukázka je anonymizovaná: názvy jsou obecné, čísla rozmazaná a nahrazená"}, "terminal": {"eyebrow": "PŘÍPADOVÁ STUDIE 3 · ZPŮSOB PRÁCE", "h2": "Práce se přestěhovala z chatu do Claude Code", "stats": [["38", "relací v Claude Code"], ["376", "zadání"], ["34", "dní s aktivitou"]], "lead": "V říjnu 2026 už jen 1 konverzace v chatu a 23 relací v Claude Code.", "alt": "Graf počtu konverzací v chatu a relací v Claude Code po měsících, v říjnu převažuje Claude Code", "foot": "Ukázka: snímek z videa „Práce v Claude“, květen až říjen 2026"}, "struna": {"eyebrow": "PŘÍPADOVÁ STUDIE 4 · SOUKROMÝ PROJEKT", "h2": "Struna: kytarová škola v telefonu", "cards": [["7", "světů s lekcemi", "každý končí výzvou"], ["9", "akordů s prstoklady", "s hodnocením hvězdičkami"], ["3", "úkoly v denní misi", "časovač, metronom, série dní"], ["26", "commitů na GitHubu", "verze 0.1 až 2.1"]], "lead": "Čisté HTML, CSS a JavaScript bez knihoven. Funguje offline, data zůstávají v telefonu a učitel dostává týdenní report.", "foot": "github.com/stetkaondrej/Struna"}, "metoda": {"eyebrow": "METODA", "h2": "Sedm fází od nápadu k provozu", "cards": [["0 · ZADÁNÍ", "Co chceme a jak poznáme, že to funguje."], ["1 · PRŮZKUM", "Co prostředí umí a co nedovolí."], ["2 · METAPLÁN", "Plán, rizika, dávky a kritéria."], ["3 · PRAVIDLA", "Mantinely, aby AI nestavěla, co nechceme."], ["4 · DÁVKY", "Zadat, postavit, ověřit, přijmout."], ["5 · OVĚŘENÍ", "Testy, checklist a zátěžový test smyslu."], ["6 · PILOT", "Skuteční lidé na skutečných zařízeních."], ["7 · PROVOZ", "Předání a dluhy pojmenované nahlas."]], "lead": "Fáze 4 a 5 se střídají. Každá dávka končí ověřením, ne slibem."}, "dal": {"eyebrow": "CO DÁL", "h2": "Od jednotlivých aplikací k agentům", "rows": ["Přenést osvědčené postupy do každodenní praxe.", "Z ustálených postupů udělat znovupoužitelné skills.", "Rutinu svěřit agentům a plánovaným úlohám."]}, "zacatek": {"eyebrow": "POKRAČOVÁNÍ PŘÍŠTĚ", "h1": ["Tohle je teprve", "začátek."], "lead": ["Před třemi lety první otázka v chatu. Dnes aplikace v provozu.", "Co bude za tři roky?"], "items": ["Roboti, kteří se novou práci ve výrobě naučí z jediné ukázky?", "AI, která sama navrhne nový produkt a odzkouší ho v simulaci?", "Agenti, kteří mezi sebou dojednají obchod, a člověk jen potvrdí?"], "name": "Ondřej Štětka", "link": "linkedin.com/in/ondrej-stetka"}}, "en": {"ui": {"title": "From Prompt to Product", "nav": ["Numbers", "Evolution", "Principle", "Projects", "Cases", "Method", "What’s next"], "all": "All", "work": "Work", "personal": "Personal", "music_on": "Play music", "music_off": "Mute music", "music_err": "The music could not be started.", "chart": "ChatGPT conversations by year (export from March 2026)", "y2026": "January to March", "zoom": "Enlarge the sample", "close": "Close", "phase": "Phase", "groups": ["Story", "Work", "Method"], "search": "Search", "cmd_ph": "Where do you want to go or what to do?", "cmd_title": "Quick actions", "cmd_none": "Nothing found.", "go": "Go to", "sources": "Sources for the numbers", "more": "Details", "sample": "About the sample", "to_en": "Switch to English", "to_cs": "Switch to Czech", "f_work": "Show work projects only", "f_personal": "Show personal projects only", "f_all": "Show all projects", "top": "Intro", "end": "Closing and contact", "ln": "Open LinkedIn", "hint_nav": "section", "hint_act": "action", "hint_link": "link"}, "cover": {"eyebrow": "PORTFOLIO · WORKING WITH AI · 2023–2026", "h1": ["From prompt", "to product"], "lead": "My journey from questions in a chat to my own apps and automation.", "name": "Ondřej Štětka", "tag": "sales · strategy · processes · AI  |  November 2026"}, "cisla": {"eyebrow": "IN NUMBERS", "h2": "Not a programmer. Building anyway.", "cards": [["651", "ChatGPT conversations", "October 2023 to March 2026"], ["2,362", "prompts of mine in those conversations", "from quick questions to analyses"], ["5", "assistants in Gemini", "3 for work, 2 personal Gems"], ["376", "prompts in Claude Code", "38 sessions, May to October 2026"], ["9", "GitHub repositories", "sites and apps built with AI"]], "lead": "I pay for the tools myself and learn on real tasks from sales, reporting and training.", "foot": "Source: ChatGPT history export, Claude Code statistics, GitHub, Gemini export"}, "cesta": {"eyebrow": "EVOLUTION", "h2": "Four phases in three years", "cards": [["2023–2024", "Questions", "First conversation in October 2023. 148 of them in 2024: translations, emails, quick research."], ["2025", "Analyst", "417 conversations in a year. Strategy, market analyses, case studies. Claude joins in August."], ["SPRING–SUMMER 2026", "Systems", "Working in projects: 33 conversations, 10 projects. Sales forecast, pricing, first dashboards."], ["AUTUMN 2026", "Builder", "Claude Code: my own apps, scheduled tasks and an e-learning app in production."]], "lead": "From a user looking for an answer to someone who briefs, directs and verifies the work of AI."}, "princip": {"eyebrow": "THE PRINCIPLE BEHIND EVERYTHING", "st": ["Verified,", "not claimed."], "lead": "AI does the work. I own the result: every output has a criterion, a test and a check on real data."}, "firemni": {"eyebrow": "WORK PROJECTS · ANONYMISED", "h2": "Five areas where AI works for business", "cards": [["SALES AND PRICING", "Sales forecast, dynamic pricing and a bonus model for the sales team."], ["REPORTING AND AUTOMATION", "Project dashboard with an automatic weekly close. New sales report from CRM exports."], ["TRAINING", "Internal AI Act e-learning with a test and certificate. AI training for colleagues."], ["CUSTOMER AND WEB", "Prototype AI assistant for the website: answers questions and collects enquiries. Project microsite."], ["STRATEGY AND MARKET", "Hoshin Kanri, market analyses, competitor monitoring and market research."], ["SOLUTIONS FOR", "Sales and manufacturing companies across industries. What matters most is that the tools can be applied."]]}, "soukrome": {"eyebrow": "PERSONAL PROJECTS", "h2": "Where I try new approaches first", "cards": [["MUSIC", "Struna: a guitar practice app for iPhone. Lessons, metronome, weekly report for the teacher."], ["LIFESTYLE", "Move & Bite: a concept for a guide to movement and food. Under construction."], ["SPORT AND DATA", "Yearly distance overviews from Strava and my own charts."], ["CAREER", "An audit of my own AI work across ChatGPT, Claude and Gemini. A site for the first 100 days in a new role."], ["FAMILY", "Small family sites on GitHub Pages."], ["LEARNING", "A journal and book picks: small tools for my own use."]]}, "elearning": {"eyebrow": "CASE STUDY 1 · TRAINING", "h2": "E-learning that doubles as proof", "lead": "An internal app: an employee takes the training, passes a test and downloads a certificate. It serves as evidence of compliance with Article 4 of the AI Act.", "stats": [["45", "employees"], ["81", "automated tests before each change is accepted"], ["0", "lines of code I wrote myself"]], "alt": "Cover slide of the Czech training deck on how an internal app is built with AI", "foot": "Sample: cover of the training deck on how the app was built (in Czech)"}, "dashboard": {"eyebrow": "CASE STUDY 2 · REPORTING", "h2": "Every Friday at 4 pm the close runs itself", "lead": "One overview for management: sales, handover, retail and remaining stock across all projects. A scheduled task rebuilds it from exports every week.", "pills": ["backup", "build", "validation", "snapshot", "archive"], "lead2": "Only the exports are uploaded by hand. Everything else, including data checks, runs without intervention.", "alt": "Anonymised project dashboard with four columns and blurred numbers", "foot": "The sample is anonymised: names are generic, numbers blurred and replaced"}, "terminal": {"eyebrow": "CASE STUDY 3 · WAY OF WORKING", "h2": "Work moved from chat to Claude Code", "stats": [["38", "Claude Code sessions"], ["376", "prompts"], ["34", "active days"]], "lead": "In October 2026: just 1 chat conversation and 23 Claude Code sessions.", "alt": "Chart of chat conversations and Claude Code sessions by month; Claude Code dominates in October", "foot": "Sample: frame from the video “Working in Claude”, May to October 2026 (in Czech)"}, "struna": {"eyebrow": "CASE STUDY 4 · PERSONAL PROJECT", "h2": "Struna: a guitar school in your phone", "cards": [["7", "worlds of lessons", "each ends with a challenge"], ["9", "chords with fingerings", "with star ratings"], ["3", "tasks in the daily mission", "timer, metronome, day streak"], ["26", "commits on GitHub", "versions 0.1 to 2.1"]], "lead": "Plain HTML, CSS and JavaScript, no libraries. Works offline, data stays on the phone and the teacher gets a weekly report.", "foot": "github.com/stetkaondrej/Struna"}, "metoda": {"eyebrow": "METHOD", "h2": "Seven phases from idea to production", "cards": [["0 · BRIEF", "What we want and how we will know it works."], ["1 · DISCOVERY", "What the environment can and cannot do."], ["2 · META-PLAN", "Plan, risks, batches and criteria."], ["3 · RULES", "Guardrails so AI does not build what we do not want."], ["4 · BATCHES", "Brief, build, verify, accept."], ["5 · VERIFICATION", "Tests, checklist and a stress test of purpose."], ["6 · PILOT", "Real people on real devices."], ["7 · OPERATIONS", "Handover, with debts named out loud."]], "lead": "Phases 4 and 5 alternate. Every batch ends with verification, not a promise."}, "dal": {"eyebrow": "WHAT’S NEXT", "h2": "From single apps to agents", "rows": ["Bring proven approaches into everyday practice.", "Turn settled routines into reusable skills.", "Hand routine work to agents and scheduled tasks."]}, "zacatek": {"eyebrow": "TO BE CONTINUED", "h1": ["This is only", "the beginning."], "lead": ["Three years ago, a first question in a chat. Today, apps in production.", "What will the next three years bring?"], "items": ["Robots that learn a new job on the shop floor from a single demonstration?", "AI that designs a new product and tests it in simulation by itself?", "Agents that negotiate a deal among themselves while a human just confirms?"], "name": "Ondřej Štětka", "link": "linkedin.com/in/ondrej-stetka"}}};
+const IDS=['cisla','vyvoj','princip','projekty','studie','metoda','dal'];
+const GROUPS=[[0,1,2],[3,4],[5,6]];
+const IC=['<path d="M4 9h16M4 15h16M10 3L8 21M16 3l-2 18"/>','<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>','<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>','<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>','<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 5"/>','<path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/>','<path d="M7 17L17 7"/><path d="M8 7h9v9"/>'];
+const CH=[['2023',1],['2024',148],['2025',417],['2026',70]];
+const PHASE_BARS=[[0,1],[2],[3],[3]];
+let lang='cs', filt='all', playing=false, acts=[], shown=[], sel=0;
+try{const s=localStorage.getItem('ptp-lang'); if(s==='en'||s==='cs') lang=s;}catch(e){}
+const MAC=/Mac|iPhone|iPad/.test(navigator.platform||'');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fold=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const $=id=>document.getElementById(id);
+const go=id=>{const el=$(id);if(el)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});};
+const SVG='<svg class="curve" viewBox="1000 0 920 1080" aria-hidden="true"><g stroke="rgba(255,255,255,.07)" stroke-width="2"><line x1="1120" y1="0" x2="1120" y2="1080"/><line x1="1280" y1="0" x2="1280" y2="1080"/><line x1="1440" y1="0" x2="1440" y2="1080"/><line x1="1600" y1="0" x2="1600" y2="1080"/><line x1="1760" y1="0" x2="1760" y2="1080"/><line x1="1040" y1="240" x2="1920" y2="240"/><line x1="1040" y1="440" x2="1920" y2="440"/><line x1="1040" y1="640" x2="1920" y2="640"/><line x1="1040" y1="840" x2="1920" y2="840"/></g><path d="M1120 880 C1240 870 1220 790 1280 760 S1380 600 1440 560 S1640 360 1760 200" fill="none" stroke="#D9B44A" stroke-width="5" stroke-linecap="round"/><circle cx="1120" cy="880" r="12" fill="#0E1F1A" stroke="#6FCF97" stroke-width="5"/><circle cx="1280" cy="760" r="12" fill="#0E1F1A" stroke="#6FCF97" stroke-width="5"/><circle cx="1440" cy="560" r="12" fill="#0E1F1A" stroke="#6FCF97" stroke-width="5"/><circle cx="1760" cy="200" r="20" fill="#D9B44A"/></svg>';
+const numCards=a=>a.map(c=>`<div class="card top glass"><p class="num" data-n="${esc(c[0])}">${esc(c[0])}</p><p class="lab">${esc(c[1])}</p><p class="sub">${esc(c[2])}</p></div>`).join('');
+const tagCards=a=>a.map(c=>`<div class="card glass"><p class="tag">${esc(c[0])}</p><p class="txt">${esc(c[1])}</p></div>`).join('');
+const stats=a=>a.map(c=>`<div class="stat"><p class="num" data-n="${esc(c[0])}">${esc(c[0])}</p><p class="lab">${esc(c[1])}</p></div>`).join('');
+const pic=(src,alt,u)=>`<button class="pic" type="button" data-src="${src}" data-alt="${esc(alt)}" aria-label="${esc(u.zoom)}: ${esc(alt)}"><img src="${src}" alt="${esc(alt)}"></button>`;
+const more=(label,html)=>`<details><summary>${esc(label)}</summary>${html}</details>`;
+function render(){
+  const T=DATA[lang],u=T.ui,max=417;
+  document.documentElement.lang=lang; document.title=u.title;
+  $('nav').innerHTML=GROUPS.map((g,gi)=>`<div class="ng"><span class="ngl">${esc(u.groups[gi])}</span><div class="ngi">${g.map(i=>`<a href="#${IDS[i]}"><svg viewBox="0 0 24 24" aria-hidden="true">${IC[i]}</svg>${esc(u.nav[i])}</a>`).join('')}</div></div>`).join('');
+  $('lang-cs').setAttribute('aria-pressed',lang==='cs'); $('lang-en').setAttribute('aria-pressed',lang==='en');
+  $('music').textContent=playing?u.music_off:u.music_on; $('zoomclose').textContent=u.close;
+  $('klabel').textContent=u.search; $('kkey').textContent=MAC?'⌘K':'Ctrl K'; $('kopen').setAttribute('aria-label',u.cmd_title);
+  $('cmdh').textContent=u.cmd_title; $('cmdq').placeholder=u.cmd_ph; $('cmdq').setAttribute('aria-label',u.cmd_ph);
+  const c=T.cover,n=T.cisla,v=T.cesta,p=T.princip,f=T.firemni,s=T.soukrome,e=T.elearning,d=T.dashboard,t=T.terminal,g=T.struna,m=T.metoda,x=T.dal,z=T.zacatek;
+  $('app').innerHTML=`
+<section class="hero" id="uvod">${SVG}<div class="wrap in"><p class="eyebrow">${esc(c.eyebrow)}</p><h1>${esc(c.h1[0])}<br>${esc(c.h1[1])}</h1><p class="lead">${esc(c.lead)}</p><div><p class="who">${esc(c.name)}</p><p class="sm">${esc(c.tag)}</p></div></div></section>
+<section id="cisla"><div class="wrap"><p class="eyebrow">${esc(n.eyebrow)}</p><h2>${esc(n.h2)}</h2><div class="grid n5">${numCards(n.cards)}</div><p class="lead after">${esc(n.lead)}</p>${more(u.sources,`<p class="sm">${esc(n.foot)}</p>`)}</div></section>
+<section id="vyvoj"><div class="wrap"><p class="eyebrow">${esc(v.eyebrow)}</p><h2>${esc(v.h2)}</h2><div class="grid" id="phases">${v.cards.map((k,i)=>`<div class="card top pick glass" tabindex="0" role="button" data-ph="${i}" aria-label="${esc(u.phase)} ${i+1}: ${esc(k[1])}"><p class="tag">${esc(k[0])}</p><p class="ttl">${esc(k[1])}</p><p class="txt">${esc(k[2])}</p></div>`).join('')}</div>
+<div class="chart glass"><div class="bars">${CH.map((b,i)=>`<div class="barc" data-b="${i}"><span class="bval">${b[1]}</span><div class="bar2" style="height:${Math.max(2,Math.round(b[1]/max*150))}px"></div></div>`).join('')}</div><div class="blab">${CH.map((b,i)=>`<span>${b[0]}${i===3?'<br>'+esc(u.y2026):''}</span>`).join('')}</div><p class="cap">${esc(u.chart)}</p></div>
+<p class="lead after">${esc(v.lead)}</p></div></section>
+<section class="band" id="princip"><div class="wrap"><div class="box"><p class="eyebrow">${esc(p.eyebrow)}</p><p class="st">${esc(p.st[0])}<br>${esc(p.st[1])}</p><p class="lead">${esc(p.lead)}</p></div></div></section>
+<section id="projekty"><div class="wrap"><div class="chips" role="group" aria-label="${esc(u.nav[3])}">${[['all',u.all],['work',u.work],['personal',u.personal]].map(k=>`<button class="chip" type="button" data-f="${k[0]}" aria-pressed="${filt===k[0]}">${esc(k[1])}</button>`).join('')}</div>
+<div class="group" data-g="work"><p class="eyebrow">${esc(f.eyebrow)}</p><h2>${esc(f.h2)}</h2><div class="grid g3">${tagCards(f.cards)}</div></div>
+<div class="group" data-g="personal" style="margin-bottom:0"><p class="eyebrow">${esc(s.eyebrow)}</p><h2>${esc(s.h2)}</h2><div class="grid g3">${tagCards(s.cards)}</div></div></div></section>
+<section id="studie"><div class="wrap">
+<div class="case glass"><div><p class="eyebrow">${esc(e.eyebrow)}</p><h3>${esc(e.h2)}</h3>${stats(e.stats)}${more(u.more,`<p class="txt">${esc(e.lead)}</p><p class="sm">${esc(e.foot)}</p>`)}</div>${pic('img/elearning.png',e.alt,u)}</div>
+<div class="case rev glass"><div><p class="eyebrow">${esc(d.eyebrow)}</p><h3>${esc(d.h2)}</h3><div class="steps">${d.pills.map(k=>`<span class="pill">${esc(k)}</span>`).join('<span class="arr">→</span>')}</div>${more(u.more,`<p class="txt">${esc(d.lead)}</p><p class="txt">${esc(d.lead2)}</p><p class="sm">${esc(d.foot)}</p>`)}</div>${pic('img/dashboard.png',d.alt,u)}</div>
+<div class="case glass"><div><p class="eyebrow">${esc(t.eyebrow)}</p><h3>${esc(t.h2)}</h3>${stats(t.stats)}${more(u.more,`<p class="txt">${esc(t.lead)}</p><p class="sm">${esc(t.foot)}</p>`)}</div>${pic('img/video.png',t.alt,u)}</div>
+<div class="case glass" style="grid-template-columns:minmax(0,1fr)"><div><p class="eyebrow">${esc(g.eyebrow)}</p><h3>${esc(g.h2)}</h3><div class="grid">${g.cards.map(k=>`<div class="stat" style="flex-direction:column;gap:2px"><p class="num" data-n="${esc(k[0])}">${esc(k[0])}</p><p class="lab">${esc(k[1])}</p><p class="sub">${esc(k[2])}</p></div>`).join('')}</div>${more(u.more,`<p class="txt">${esc(g.lead)}</p><p class="sm"><a href="https://github.com/stetkaondrej/Struna">${esc(g.foot)}</a></p>`)}</div></div>
+</div></section>
+<section id="metoda"><div class="wrap"><p class="eyebrow">${esc(m.eyebrow)}</p><h2>${esc(m.h2)}</h2><p class="lead" style="margin:-14px 0 26px">${esc(m.lead)}</p><div class="flow">${m.cards.map((k,i)=>`<details class="glass${i===4||i===5?' core':''}"${i===4||i===5?' open':''}><summary>${esc(k[0])}</summary><p class="txt">${esc(k[1])}</p></details>`).join('')}</div></div></section>
+<section id="dal"><div class="wrap"><p class="eyebrow">${esc(x.eyebrow)}</p><h2>${esc(x.h2)}</h2>${x.rows.map((r,i)=>`<div class="row"><span class="no">0${i+1}</span><span class="t">${esc(r)}</span></div>`).join('')}</div></section>
+<section class="end" id="zacatek"><div class="wrap"><p class="eyebrow">${esc(z.eyebrow)}</p><h1>${esc(z.h1[0])}<br>${esc(z.h1[1])}</h1><p class="lead" style="margin-top:26px">${esc(z.lead[0])}<br>${esc(z.lead[1])}</p><div style="margin-top:22px">${z.items.map(k=>`<p class="q"><span>→</span> ${esc(k)}</p>`).join('')}</div><p class="who" style="margin-top:44px">${esc(z.name)}</p><p style="margin:4px 0 0"><a id="ln" href="https://www.linkedin.com/in/ondrej-stetka">${esc(z.link)}</a></p></div></section>`;
+  acts=[{l:u.top,h:u.hint_nav,r:()=>go('uvod')}].concat(u.nav.map((nm,i)=>({l:u.go+': '+nm,h:u.hint_nav,r:()=>go(IDS[i])})),[
+    {l:u.end,h:u.hint_nav,r:()=>go('zacatek')},
+    {l:u.f_work,h:u.hint_act,r:()=>{filt='work';applyFilter();go('projekty');}},
+    {l:u.f_personal,h:u.hint_act,r:()=>{filt='personal';applyFilter();go('projekty');}},
+    {l:u.f_all,h:u.hint_act,r:()=>{filt='all';applyFilter();go('projekty');}},
+    {l:lang==='cs'?u.to_en:u.to_cs,h:u.hint_act,r:()=>setLang(lang==='cs'?'en':'cs')},
+    {l:playing?u.music_off:u.music_on,h:u.hint_act,r:()=>$('music').click()},
+    {l:u.ln,h:u.hint_link,r:()=>{const a=$('ln');if(a)a.click();}}]);
+  applyFilter(); setPhase(3); wire();
+}
+function applyFilter(){
+  document.querySelectorAll('.group').forEach(g=>{g.hidden=!(filt==='all'||g.dataset.g===filt);});
+  document.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===filt));
+}
+function setPhase(i){
+  document.querySelectorAll('#phases .card').forEach(c=>c.classList.toggle('hl',+c.dataset.ph===i));
+  document.querySelectorAll('.barc').forEach(b=>b.classList.toggle('on',PHASE_BARS[i].includes(+b.dataset.b)));
+}
+function fmt(v,src){const sep=src.includes(',')?',':(src.includes(' ')?' ':''); return sep?String(v).replace(/\B(?=(\d{3})+(?!\d))/g,sep):String(v);}
+let io=null;
+function wire(){
+  document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{filt=b.dataset.f;applyFilter();});
+  document.querySelectorAll('#phases .card').forEach(c=>{const f=()=>setPhase(+c.dataset.ph);c.onclick=f;c.onmouseenter=f;c.onfocus=f;c.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();f();}};});
+  document.querySelectorAll('.pic').forEach(b=>b.onclick=()=>{const dlg=$('zoom');$('zoomimg').src=b.dataset.src;$('zoomimg').alt=b.dataset.alt;if(dlg.showModal)dlg.showModal();});
+  const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(io)io.disconnect();
+  if(calm||!('IntersectionObserver' in window))return;
+  io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target;io.unobserve(el);
+    if(el.dataset.n!==undefined){const src=el.dataset.n,end=parseInt(src.replace(/[^\d]/g,''),10);if(!end)return;const t0=performance.now(),dur=900;
+      const tick=now=>{const k=Math.min(1,(now-t0)/dur);el.textContent=fmt(Math.round(end*(1-Math.pow(1-k,3))),src);if(k<1)requestAnimationFrame(tick);else el.textContent=src;};requestAnimationFrame(tick);}
+    else el.classList.remove('pre');}),{threshold:.15});
+  document.querySelectorAll('.num[data-n]').forEach(el=>io.observe(el));
+  const vh=innerHeight;
+  document.querySelectorAll('main section').forEach(sec=>{sec.classList.add('reveal');if(sec.getBoundingClientRect().top>vh*.9){sec.classList.add('pre');io.observe(sec);}});
+}
+function setLang(l){lang=l;try{localStorage.setItem('ptp-lang',l);}catch(e){}render();}
+function drawCmd(){
+  const q=fold($('cmdq').value.trim()),u=DATA[lang].ui;
+  shown=acts.filter(a=>!q||fold(a.l).includes(q)); if(sel>=shown.length)sel=0;
+  $('cmdl').innerHTML=shown.length?shown.map((a,i)=>`<li role="option" id="co${i}" data-i="${i}" aria-selected="${i===sel}"><span>${esc(a.l)}</span><small>${esc(a.h)}</small></li>`).join(''):`<li class="none">${esc(u.cmd_none)}</li>`;
+  $('cmdq').setAttribute('aria-activedescendant',shown.length?'co'+sel:'');
+  const cur=$('co'+sel); if(cur&&cur.scrollIntoView)cur.scrollIntoView({block:'nearest'});
+}
+function openCmd(){const d=$('cmd');if(d.open||!d.showModal)return;$('cmdq').value='';sel=0;drawCmd();d.showModal();$('cmdq').focus();}
+function runCmd(i){const a=shown[i];if(!a)return;$('cmd').close();a.r();}
+$('kopen').onclick=openCmd;
+$('cmdq').oninput=()=>{sel=0;drawCmd();};
+$('cmdq').onkeydown=ev=>{if(ev.key==='ArrowDown'){ev.preventDefault();sel=Math.min(shown.length-1,sel+1);drawCmd();}else if(ev.key==='ArrowUp'){ev.preventDefault();sel=Math.max(0,sel-1);drawCmd();}else if(ev.key==='Enter'){ev.preventDefault();runCmd(sel);}};
+$('cmdl').onclick=ev=>{const li=ev.target.closest('li[data-i]');if(li)runCmd(+li.dataset.i);};
+$('cmdl').onmousemove=ev=>{const li=ev.target.closest('li[data-i]');if(li&&+li.dataset.i!==sel){sel=+li.dataset.i;drawCmd();}};
+addEventListener('keydown',ev=>{if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase()==='k'){ev.preventDefault();if($('cmd').open)$('cmd').close();else openCmd();}});
+['zoom','cmd'].forEach(id=>$(id).addEventListener('click',ev=>{if(ev.target===$(id))$(id).close();}));
+$('lang-cs').onclick=()=>setLang('cs'); $('lang-en').onclick=()=>setLang('en');
+$('zoomclose').onclick=()=>$('zoom').close();
+$('music').onclick=()=>{const a=$('bgm'),u=DATA[lang].ui,b=$('music');
+  if(playing){a.pause();playing=false;b.textContent=u.music_on;b.setAttribute('aria-pressed','false');return;}
+  a.volume=.5;const pr=a.play();
+  const ok=()=>{playing=true;b.textContent=u.music_off;b.setAttribute('aria-pressed','true');};
+  if(pr&&pr.then)pr.then(ok).catch(()=>{b.textContent=u.music_err;});else ok();};
+addEventListener('scroll',()=>{const h=document.documentElement;const k=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight);$('prog').style.width=(k*100).toFixed(1)+'%';
+  let cur='';IDS.forEach(id=>{const el=$(id);if(el&&el.getBoundingClientRect().top<150)cur=id;});
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));},{passive:true});
+render();
+</script>
+</body>
+</html>
