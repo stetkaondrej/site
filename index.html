@@ -28,24 +28,27 @@ button{font:inherit;color:inherit;cursor:pointer}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .glass{background:var(--glass);border:1px solid var(--edge);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:0 10px 30px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
 header.top{position:sticky;top:0;z-index:5;background:rgba(14,31,26,.55);border-bottom:1px solid var(--hair);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
-.bar{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap;padding:10px 20px}
-.brand{font-family:var(--mono);font-weight:700;color:var(--gold);letter-spacing:1px;text-decoration:none;margin-right:auto}
-nav{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+header.top .wrap{max-width:1400px}
+.bar{display:flex;align-items:center;gap:16px;flex-wrap:nowrap;padding:10px 20px;min-height:64px}
+.brand{font-family:var(--mono);font-weight:700;color:var(--gold);letter-spacing:1px;text-decoration:none;white-space:nowrap;flex:none}
+nav{display:flex;gap:14px;flex-wrap:nowrap;align-items:flex-end;margin:0 auto;flex:none}
 .ng{display:flex;flex-direction:column;gap:2px}
 .ngl{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mute);padding-left:8px}
 .ngi{display:flex;gap:2px}
-nav a{display:flex;align-items:center;gap:6px;color:var(--soft);text-decoration:none;font-size:14.5px;padding:5px 8px;border-radius:8px}
-nav a svg,.kbtn svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav a{display:flex;align-items:center;gap:6px;color:var(--soft);text-decoration:none;font-size:14.5px;padding:5px 7px;border-radius:8px;white-space:nowrap}
+nav a svg,.kbtn svg,#music svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 nav a:hover,nav a.on{color:var(--ink);background:var(--glass-2)}
 nav a.on svg{stroke:var(--gold)}
-.tools{display:flex;gap:8px;align-items:center}
-.kbtn{display:flex;align-items:center;gap:8px;border-radius:10px;padding:6px 10px;font-size:14px;color:var(--soft);background:var(--glass);border:1px solid var(--edge)}
+.tools{display:flex;gap:8px;align-items:center;flex:none;margin-left:auto}
+.kbtn{display:flex;align-items:center;gap:8px;white-space:nowrap;border-radius:10px;padding:6px 10px;font-size:14px;color:var(--soft);background:var(--glass);border:1px solid var(--edge)}
 .kbtn:hover{border-color:var(--gold);color:var(--ink)}
 kbd{font-family:var(--mono);font-size:12px;border:1px solid var(--edge);border-radius:6px;padding:1px 6px;color:var(--mute);background:rgba(0,0,0,.18)}
 .seg{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden}
 .seg button{background:none;border:0;padding:6px 11px;font-family:var(--mono);font-size:13px;color:var(--soft)}
 .seg button[aria-pressed="true"]{background:var(--gold);color:var(--bg);font-weight:700}
-.btn{border-radius:10px;padding:6px 12px;font-size:14px;background:var(--glass);border:1px solid var(--edge)}
+.btn{border-radius:10px;padding:6px 12px;font-size:14px;background:var(--glass);border:1px solid var(--edge);white-space:nowrap}
+#music{display:flex;align-items:center;gap:7px}
+#music[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
 .btn:hover{border-color:var(--gold)}
 #prog{height:2px;background:var(--gold);width:0}
 section{padding:84px 0}
@@ -133,8 +136,8 @@ dialog::backdrop{background:rgba(4,10,8,.6);-webkit-backdrop-filter:blur(3px);ba
 #cmdl li.none{cursor:default;color:var(--mute)}
 .pre{opacity:.6;transform:translateY(18px)}
 .reveal{transition:opacity .6s ease,transform .6s ease}
-@media (max-width:980px){nav{display:none}}
-@media (max-width:760px){.case{grid-template-columns:1fr;padding:22px}.case.rev .pic{order:0}.hero svg.curve{display:none}section{padding:56px 0}.kbtn span.kl{display:none}}
+@media (max-width:1239px){nav{display:none}}
+@media (max-width:760px){.case{grid-template-columns:1fr;padding:22px}.case.rev .pic{order:0}.hero svg.curve{display:none}section{padding:56px 0}.kbtn span.kl{display:none}.kbtn kbd{display:none}#mlabel{display:none}.bar{gap:10px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{transition:none}.pre{opacity:1;transform:none}}
 </style>
 </head>
@@ -145,7 +148,7 @@ dialog::backdrop{background:rgba(4,10,8,.6);-webkit-backdrop-filter:blur(3px);ba
 <div class="tools">
 <button class="kbtn" id="kopen" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="kl" id="klabel"></span><kbd id="kkey">Ctrl K</kbd></button>
 <div class="seg" role="group" aria-label="Jazyk / Language"><button id="lang-cs" type="button">CS</button><button id="lang-en" type="button">EN</button></div>
-<button class="btn" id="music" type="button" aria-pressed="false"></button>
+<button class="btn" id="music" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span id="mlabel"></span></button>
 </div>
 </div><div id="prog"></div></header>
 <main id="app"></main>
@@ -177,7 +180,7 @@ function render(){
   document.documentElement.lang=lang; document.title=u.title;
   $('nav').innerHTML=GROUPS.map((g,gi)=>`<div class="ng"><span class="ngl">${esc(u.groups[gi])}</span><div class="ngi">${g.map(i=>`<a href="#${IDS[i]}"><svg viewBox="0 0 24 24" aria-hidden="true">${IC[i]}</svg>${esc(u.nav[i])}</a>`).join('')}</div></div>`).join('');
   $('lang-cs').setAttribute('aria-pressed',lang==='cs'); $('lang-en').setAttribute('aria-pressed',lang==='en');
-  $('music').textContent=playing?u.music_off:u.music_on; $('zoomclose').textContent=u.close;
+  setMusic(playing?u.music_off:u.music_on); $('zoomclose').textContent=u.close;
   $('klabel').textContent=u.search; $('kkey').textContent=MAC?'⌘K':'Ctrl K'; $('kopen').setAttribute('aria-label',u.cmd_title);
   $('cmdh').textContent=u.cmd_title; $('cmdq').placeholder=u.cmd_ph; $('cmdq').setAttribute('aria-label',u.cmd_ph);
   const c=T.cover,n=T.cisla,v=T.cesta,p=T.princip,f=T.firemni,s=T.soukrome,e=T.elearning,d=T.dashboard,t=T.terminal,g=T.struna,m=T.metoda,x=T.dal,z=T.zacatek;
@@ -210,6 +213,7 @@ function render(){
     {l:u.ln,h:u.hint_link,r:()=>{const a=$('ln');if(a)a.click();}}]);
   applyFilter(); setPhase(3); wire();
 }
+function setMusic(txt){$('mlabel').textContent=txt;$('music').setAttribute('aria-label',txt);}
 function applyFilter(){
   document.querySelectorAll('.group').forEach(g=>{g.hidden=!(filt==='all'||g.dataset.g===filt);});
   document.querySelectorAll('.chip').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===filt));
@@ -235,7 +239,14 @@ function wire(){
   const vh=innerHeight;
   document.querySelectorAll('main section').forEach(sec=>{sec.classList.add('reveal');if(sec.getBoundingClientRect().top>vh*.9){sec.classList.add('pre');io.observe(sec);}});
 }
-function setLang(l){lang=l;try{localStorage.setItem('ptp-lang',l);}catch(e){}render();}
+function setLang(l){
+  if(l===lang)return;
+  /* zapamatuj si, kde čtenář je, a po překreslení ho vrať na stejné místo */
+  let keep=null;
+  for(const s of document.querySelectorAll('main section')){const r=s.getBoundingClientRect();if(r.bottom>90){keep={id:s.id,f:r.height?(90-r.top)/r.height:0};break;}}
+  lang=l;try{localStorage.setItem('ptp-lang',l);}catch(e){}render();
+  if(keep&&scrollY>0){const s=$(keep.id);if(s){s.classList.remove('pre');const r=s.getBoundingClientRect();const root=document.documentElement,old=root.style.scrollBehavior;root.style.scrollBehavior='auto';scrollTo(0,scrollY+r.top+keep.f*r.height-90);root.style.scrollBehavior=old;}}
+}
 function drawCmd(){
   const q=fold($('cmdq').value.trim()),u=DATA[lang].ui;
   shown=acts.filter(a=>!q||fold(a.l).includes(q)); if(sel>=shown.length)sel=0;
@@ -255,10 +266,10 @@ addEventListener('keydown',ev=>{if((ev.metaKey||ev.ctrlKey)&&ev.key.toLowerCase(
 $('lang-cs').onclick=()=>setLang('cs'); $('lang-en').onclick=()=>setLang('en');
 $('zoomclose').onclick=()=>$('zoom').close();
 $('music').onclick=()=>{const a=$('bgm'),u=DATA[lang].ui,b=$('music');
-  if(playing){a.pause();playing=false;b.textContent=u.music_on;b.setAttribute('aria-pressed','false');return;}
+  if(playing){a.pause();playing=false;setMusic(u.music_on);b.setAttribute('aria-pressed','false');return;}
   a.volume=.5;const pr=a.play();
-  const ok=()=>{playing=true;b.textContent=u.music_off;b.setAttribute('aria-pressed','true');};
-  if(pr&&pr.then)pr.then(ok).catch(()=>{b.textContent=u.music_err;});else ok();};
+  const ok=()=>{playing=true;setMusic(u.music_off);b.setAttribute('aria-pressed','true');};
+  if(pr&&pr.then)pr.then(ok).catch(()=>{setMusic(u.music_err);});else ok();};
 addEventListener('scroll',()=>{const h=document.documentElement;const k=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight);$('prog').style.width=(k*100).toFixed(1)+'%';
   let cur='';IDS.forEach(id=>{const el=$(id);if(el&&el.getBoundingClientRect().top<150)cur=id;});
   document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));},{passive:true});
